@@ -1,15 +1,16 @@
 <template>
   <div>
-    hello world! This is data page.
+    <data-chart />
   </div>
 </template>
 
 <script>
 // import { mapGetters } from 'vuex'
+import DataChart from './components/DataChart'
 
 export default {
   name: 'Home',
-  components: { },
+  components: { DataChart },
   data() {
     return {
     }
@@ -20,3 +21,6 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+</style>

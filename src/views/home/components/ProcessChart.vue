@@ -30,7 +30,7 @@ export default {
         processNode: {
           color: '#3E4150',
           symbol: 'rect',
-          symbolSize: [80, 45]
+          symbolSize: [90, 50]
         },
         assistantNode: {
           color: '#DF0101',
@@ -61,7 +61,6 @@ export default {
         if (params.componentType === 'series') {
           if (params.seriesType === 'graph') {
             if (params.dataType === 'node') {
-            //   console.log(params)
               // 点击到了 graph 的 node（节点）上。
               switch (params.name) {
                 case '数据接入':
