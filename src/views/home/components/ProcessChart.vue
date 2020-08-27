@@ -55,9 +55,48 @@ export default {
   methods: {
     initChart() {
       this.chart = echarts.init(this.$el, 'macarons')
-
+      // 监听图标点击节点事件
+      var self = this
+      this.chart.on('click', function(params) {
+        if (params.componentType === 'series') {
+          if (params.seriesType === 'graph') {
+            if (params.dataType === 'node') {
+            //   console.log(params)
+              // 点击到了 graph 的 node（节点）上。
+              switch (params.name) {
+                case '数据接入':
+                  self.$router.push('/process-manage/data-upload')
+                  break
+                case '数据集':
+                  self.$router.push('/process-manage/data-set')
+                  break
+                case '数据标注':
+                  self.$router.push('/process-manage/annotation')
+                  break
+                case '预处理':
+                  self.$router.push('/process-manage/pre-process')
+                  break
+                case '模型训练':
+                  self.$router.push('/process-manage/model-train')
+                  break
+                case '批处理':
+                  self.$router.push('/process-manage/batch-process')
+                  break
+                case '任务管理':
+                  self.$router.push('/process-manage/task-manage')
+                  break
+                case '模型管理':
+                  self.$router.push('/process-manage/model-manage')
+                  break
+              }
+            }
+          }
+        }
+      })
       this.chart.setOption({
-        tooltip: { },
+        tooltip: {
+          show: false
+        },
         animationDurationUpdate: 1500,
         animationEasingUpdate: 'quinticInOut',
         hoverAnimation: true,

@@ -11,6 +11,7 @@ import Layout from '@/layout'
 // import chartsRouter from './modules/charts'
 // import tableRouter from './modules/table'
 // import nestedRouter from './modules/nested'
+import ProcessManage from './modules/process-manage'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -83,15 +84,56 @@ export const constantRoutes = [
       }
     ]
   },
+  ProcessManage,
   {
-    path: '/data',
+    path: '/data-manage',
     component: Layout,
+    redirect: '/data/index',
     children: [
       {
         path: 'index',
-        component: () => import('@/views/data/index'),
-        name: 'Data',
-        meta: { title: '数据管理', icon: 'documentation', affix: true }
+        component: () => import('@/views/data-manage/index'),
+        name: 'DataManage',
+        meta: { title: '数据管理', icon: 'documentation', affix: false }
+      }
+    ]
+  },
+  {
+    path: '/gui',
+    component: Layout,
+    redirect: '/gui/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/gui/index'),
+        name: 'Gui',
+        meta: { title: '图形界面', icon: 'documentation', affix: false }
+      }
+    ]
+  },
+  {
+    path: '/community',
+    component: Layout,
+    redirect: '/community/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/community/index'),
+        name: 'Community',
+        meta: { title: '共享社区', icon: 'documentation', affix: false }
+      }
+    ]
+  },
+  {
+    path: '/guide',
+    component: Layout,
+    redirect: '/guide/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/guide/index'),
+        name: 'Guide',
+        meta: { title: '使用指南', icon: 'guide', noCache: true }
       }
     ]
   }/*
@@ -154,6 +196,20 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  {
+    path: '/admin',
+    component: Layout,
+    redirect: '/admin/index',
+    meta: { roles: ['admin'] },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/admin/index'),
+        name: 'Admin',
+        meta: { title: '管理员权限', icon: 'guide', noCache: true }
+      }
+    ]
+  },
   /* {
     path: '/permission',
     component: Layout,
