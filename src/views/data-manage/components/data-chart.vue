@@ -9,6 +9,7 @@ require('echarts/theme/macarons') // echarts theme
 // const animationDuration = 6000
 
 export default {
+  name: 'DataChart',
   props: {
     className: {
       type: String,

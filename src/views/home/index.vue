@@ -6,11 +6,11 @@
 
 <script>
 // import { mapGetters } from 'vuex'
-import ProcessChart from './components/ProcessChart'
+import processChart from './components/process-chart'
 
 export default {
   name: 'Home',
-  components: { ProcessChart },
+  components: { processChart },
   data() {
     return {
     }

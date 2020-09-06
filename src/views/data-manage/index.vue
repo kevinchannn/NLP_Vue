@@ -6,11 +6,11 @@
 
 <script>
 // import { mapGetters } from 'vuex'
-import DataChart from './components/DataChart'
+import dataChart from './components/data-chart'
 
 export default {
   name: 'Home',
-  components: { DataChart },
+  components: { dataChart },
   data() {
     return {
     }
