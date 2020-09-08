@@ -32,11 +32,21 @@ export default {
   data() {
     return {
       switchDataSet: '训练数据集',
-      switchUploadMethod: '文件上传',
-      currentForm: 'trainFile'
+      switchUploadMethod: '文件上传'
     }
   },
   computed: {
+    currentForm: function() {
+      if (this.switchDataSet === '训练数据集') {
+        switch (this.switchUploadMethod) {
+          case '文件上传':
+            return 'trainFile'
+        }
+      } else if (this.switchDataSet === '批处理数据集') {
+        return ''
+      }
+      return ''
+    }
   },
   created() {
   }

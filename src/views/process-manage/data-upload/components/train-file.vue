@@ -1,8 +1,8 @@
 <template>
   <el-row>
     <el-col :span="12" :offset="6">
-      <el-form ref="form" :model="uploadForm" label-width="100px">
-        <el-form-item label="任务类型">
+      <el-form ref="uploadForm" :model="uploadForm" :rules="uploadRules" label-width="100px">
+        <el-form-item label="任务类型" prop="taskType">
           <el-select v-model="uploadForm.taskType" placeholder="请选择NLP任务类型" style="width:400px">
             <el-option label="通用单文本分类" value="通用单文本分类" />
             <el-option label="情感分析/意图识别" value="情感分析/意图识别" />
@@ -12,19 +12,19 @@
             <el-option label="文本排序学习" value="文本排序学习" />
           </el-select>
         </el-form-item>
-        <el-form-item label="任务名称">
-          <el-input v-model="uploadForm.name" placeholder="请填写该任务名" style="width:400px" />
+        <el-form-item label="任务名称" prop="taskName">
+          <el-input v-model="uploadForm.taskName" placeholder="请填写该任务名" style="width:400px" />
         </el-form-item>
         <el-form-item label="任务描述">
           <el-input v-model="uploadForm.desc" type="textarea" placeholder="选填" style="width:400px" />
         </el-form-item>
-        <el-form-item label="是否公开">
+        <el-form-item label="是否公开" prop="publicity">
           <el-radio-group v-model="uploadForm.publicity">
             <el-radio label="是" />
             <el-radio label="否" />
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="文件上传">
+        <el-form-item label="文件上传" prop="filelist">
           <el-upload
             ref="uploadFunc"
             class="upload-demo"
@@ -34,6 +34,7 @@
             :data="uploadForm"
             :limit="1"
             :auto-upload="false"
+            accept=".csv, .txt, .tsv, .doc, .docx, .xls, .xlsx"
             style="height:120px"
           >
             <el-button size="small" type="primary">点击上传</el-button>
@@ -41,7 +42,7 @@
           </el-upload>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" style="margin-left:150px" @click="onUploadSubmit">确认上传</el-button>
+          <el-button type="primary" style="margin-left:150px" @click="onUploadSubmit('uploadForm')">确认上传</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -52,22 +53,67 @@
 export default {
   name: 'TrainFile',
   data() {
+    const validateTaskType = (rule, value, callback) => {
+      if (value.length < 1) {
+        callback(new Error('请选择任务类型'))
+      } else {
+        callback()
+      }
+    }
+    const validateTaskName = (rule, value, callback) => {
+      if (value.length < 2) {
+        callback(new Error('任务名称长度不小于2位'))
+      } else {
+        callback()
+      }
+    }
+    const validatePublicity = (rule, value, callback) => {
+      if (value.length < 1) {
+        callback(new Error('请选择是否公开'))
+      } else {
+        callback()
+      }
+    }
+    const validateFilelist = (rule, value, callback) => {
+      const _this = this
+      const uploadFile = _this.$refs.uploadFunc.uploadFiles
+      const flag = uploadFile && uploadFile.length !== 0
+      if (!flag) {
+        callback(new Error('请上传文件'))
+      } else {
+        callback()
+      }
+    }
     return {
       uploadForm: {
         taskType: '',
-        name: '',
+        taskName: '',
         desc: '',
         publicity: ''
       },
       uploadInfo: {
-        filelist: '',
+        filelist: [],
         uploadUrl: process.env.VUE_APP_BASE_API + '/process-manage/data/train/file',
         headers: { 'Authorization': 'Bearer ' + this.$store.state.user.token }
+      },
+      uploadRules: {
+        taskType: [{ required: true, trigger: 'blur', validator: validateTaskType }],
+        taskName: [{ required: true, trigger: 'blur', validator: validateTaskName }],
+        publicity: [{ required: true, trigger: 'blur', validator: validatePublicity }],
+        filelist: [{ required: true, trigger: 'blur', validator: validateFilelist }]
+
       }
     }
   },
   methods: {
-    onUploadSubmit() {
+    onUploadSubmit(form) {
+      this.$refs[form].validate(valid => {
+        if (valid) {
+          console.log('success submit!!')
+        } else {
+          console.log('error submit!!')
+        }
+      })
       this.$refs.uploadFunc.submit()
     }
   }
