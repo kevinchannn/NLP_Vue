@@ -101,7 +101,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/gui/index'),
         name: 'Gui',
-        meta: { title: '图形界面', icon: 'documentation', affix: false }
+        meta: { title: '图形界面', icon: 'eye-open', affix: false }
       }
     ]
   },
@@ -114,7 +114,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/community/index'),
         name: 'Community',
-        meta: { title: '共享社区', icon: 'documentation', affix: false }
+        meta: { title: '共享社区', icon: 'peoples', affix: false }
       }
     ]
   },
@@ -148,7 +148,7 @@ export const asyncRoutes = [
         path: 'index',
         component: () => import('@/views/admin/index'),
         name: 'Admin',
-        meta: { title: '管理员权限', icon: 'guide', noCache: true }
+        meta: { title: '管理员权限', icon: 'lock', noCache: true }
       }
     ]
   },
