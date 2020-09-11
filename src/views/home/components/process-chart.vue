@@ -250,6 +250,15 @@ export default {
             itemStyle: {
               normal: { color: this.chartStyle.processNode.color }
             }
+          }, {
+            name: '结果应用',
+            x: 5000,
+            y: 800,
+            symbol: this.chartStyle.processNode.symbol,
+            symbolSize: this.chartStyle.processNode.symbolSize,
+            itemStyle: {
+              normal: { color: this.chartStyle.processNode.color }
+            }
           }],
           links: [{
             source: 0,
@@ -352,6 +361,12 @@ export default {
             target: 13,
             lineStyle: {
               curveness: -0.3
+            }
+          }, {
+            source: 13,
+            target: 16,
+            lineStyle: {
+              curveness: 0
             }
           }]
         }]
