@@ -111,6 +111,16 @@ export default {
     .el-input {
       padding-left: 20px;
     }
+
+    .el-form-item{
+        border:solid 0.5px !important;
+        background: white !important;
+    }
+
+    input{
+        color:black !important;
+        caret-color:black !important;
+    }
   }
 
 </style>
