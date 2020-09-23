@@ -113,7 +113,7 @@ export default {
     }
 
     .el-form-item{
-        border:solid 0.5px !important;
+        border:solid lightgray 0.2px  !important;
         background: white !important;
     }
 
